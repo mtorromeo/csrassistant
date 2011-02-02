@@ -6,18 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>352</width>
-    <height>268</height>
+    <width>379</width>
+    <height>279</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>CSR Assistant</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetFixedSize</enum>
-   </property>
-   <item row="0" column="0" colspan="2">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="lblDomain">
@@ -92,13 +89,6 @@
      <item row="4" column="1">
       <widget class="QLineEdit" name="txtOrganization"/>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="txtOrganizationUnit">
-       <property name="text">
-        <string>Web Department</string>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="0">
       <widget class="QLabel" name="lblOrganizationUnit">
        <property name="text">
@@ -109,51 +99,86 @@
        </property>
       </widget>
      </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="txtOrganizationUnit">
+       <property name="text">
+        <string>Web Department</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="lblEmail">
+       <property name="text">
+        <string>Email</string>
+       </property>
+       <property name="buddy">
+        <cstring>txtEmail</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="txtEmail"/>
+     </item>
     </layout>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLabel" name="lblHostKey">
-     <property name="text">
-      <string>Private host key:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QLabel" name="lblCSR">
-     <property name="text">
-      <string>Certificate request:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>236</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="4" column="1">
-    <widget class="QPushButton" name="btnGenerate">
-     <property name="text">
-      <string>&amp;Generate</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QCheckBox" name="chkSign">
      <property name="text">
       <string>Generate self-signed certificate</string>
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QLabel" name="lblHostKey">
+     <property name="text">
+      <string>Private host key:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblCSR">
+     <property name="text">
+      <string>Certificate request:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>236</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnGenerate">
+       <property name="text">
+        <string>&amp;Generate</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txtDomain</tabstop>
+  <tabstop>txtCountry</tabstop>
+  <tabstop>txtStateProvince</tabstop>
+  <tabstop>txtLocality</tabstop>
+  <tabstop>txtOrganization</tabstop>
+  <tabstop>txtOrganizationUnit</tabstop>
+  <tabstop>txtEmail</tabstop>
+  <tabstop>chkSign</tabstop>
+  <tabstop>btnGenerate</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -42,16 +42,17 @@ class CSRAssistant(QDialog, Ui_CSRWindow):
 		self.lblHostKey.setText("Private host key: %s" % keyfile)
 		self.lblCSR.setText("Certificate request: %s" % csrfile)
 
-		csrdata = "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/" % (
+		csrdata = "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s/" % (
 			self.txtCountry.text(),
 			self.txtStateProvince.text(),
 			self.txtLocality.text(),
 			self.txtOrganization.text(),
 			self.txtOrganizationUnit.text(),
-			self.txtDomain.text()
+            self.txtDomain.text(),
+            self.txtEmail.text()
 		)
 
-		p = Popen(["openssl", "req", "-new", "-subj", csrdata, "-nodes", "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
+		p = Popen(["openssl", "req", "-new", "-subj", csrdata, "-nodes", "-newkey", "rsa:2048", "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
 		QMessageBox.information(self, "Generation result", p.communicate()[0])
 
 		if self.chkSign.checkState() == Qt.Checked:
