@@ -57,7 +57,7 @@ class CSRAssistant(QDialog, Ui_CSRWindow):
 
 		if self.chkSign.checkState() == Qt.Checked:
 			crtfile = os.path.expanduser("~/%s.crt" % domain)
-			p = Popen(["openssl", "x509", "-req", "-days", "30", "-in", csrfile, "-signkey", keyfile, "-out", crtfile], shell=False, stderr=STDOUT, stdout=PIPE)
+			p = Popen(["openssl", "x509", "-req", "-days", str(self.spinDays.value()), "-in", csrfile, "-signkey", keyfile, "-out", crtfile], shell=False, stderr=STDOUT, stdout=PIPE)
 			QMessageBox.information(self, "Signing result", p.communicate()[0])
 
 if __name__ == "__main__":

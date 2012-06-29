@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>279</height>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,6 +129,38 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="groupSign">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Sign options</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblDays">
+        <property name="text">
+         <string>Days of validation</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="spinDays">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100000</number>
+        </property>
+        <property name="value">
+         <number>30</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="lblHostKey">
      <property name="text">
       <string>Private host key:</string>
@@ -177,8 +209,26 @@
   <tabstop>txtOrganizationUnit</tabstop>
   <tabstop>txtEmail</tabstop>
   <tabstop>chkSign</tabstop>
+  <tabstop>spinDays</tabstop>
   <tabstop>btnGenerate</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>chkSign</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupSign</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>16</x>
+     <y>199</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>218</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
