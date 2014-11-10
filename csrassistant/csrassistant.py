@@ -52,7 +52,7 @@ class CSRAssistant(QDialog, Ui_CSRWindow):
             self.txtEmail.text()
 		)
 
-		p = Popen(["openssl", "req", "-new", "-subj", csrdata, "-nodes", "-newkey", "rsa:2048", "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
+		p = Popen(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", "rsa:2048", "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
 		QMessageBox.information(self, "Generation result", p.communicate()[0])
 
 		if self.chkSign.checkState() == Qt.Checked:
