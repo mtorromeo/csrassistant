@@ -3,6 +3,7 @@
 
 import sys, os
 from subprocess import *
+from tempfile import NamedTemporaryFile
 
 from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QLayout
@@ -52,8 +53,16 @@ class CSRAssistant(QDialog, Ui_CSRWindow):
             self.txtEmail.text()
         )
 
-        p = Popen(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", "rsa:2048", "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
-        QMessageBox.information(self, "Generation result", p.communicate()[0])
+        ecparam = NamedTemporaryFile(delete=False)
+        ecparam.close()
+
+        p = Popen(["openssl", "ecparam", "-name", "secp256k1", "-out", ecparam.name], shell=False, stderr=STDOUT, stdout=PIPE)
+        QMessageBox.information(self, "Ecparam generation result", p.communicate()[0].decode("utf-8"))
+
+        p = Popen(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", "ec:{}".format(ecparam.name), "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
+        QMessageBox.information(self, "Generation result", p.communicate()[0].decode("utf-8"))
+
+        os.unlink(ecparam.name)
 
         if self.chkSign.checkState() == Qt.Checked:
             crtfile = os.path.expanduser("~/%s.crt" % domain)
