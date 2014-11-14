@@ -9,10 +9,15 @@ from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QLayout
 from Ui_csrwindow import Ui_CSRWindow
 
+
 class CSRAssistant(QDialog, Ui_CSRWindow):
     def __init__(self, **kwds):
         super().__init__(**kwds)
         self.setupUi(self)
+
+    def run(self, command):
+        p = Popen(command, shell=False, stderr=STDOUT, stdout=PIPE)
+        return p.communicate()[0].decode("utf-8")
 
     @pyqtSlot()
     def on_btnGenerate_clicked(self):
@@ -56,18 +61,22 @@ class CSRAssistant(QDialog, Ui_CSRWindow):
         ecparam = NamedTemporaryFile(delete=False)
         ecparam.close()
 
-        p = Popen(["openssl", "ecparam", "-name", "secp256k1", "-out", ecparam.name], shell=False, stderr=STDOUT, stdout=PIPE)
-        QMessageBox.information(self, "Ecparam generation result", p.communicate()[0].decode("utf-8"))
+        out = self.run(["openssl", "ecparam", "-name", "secp256k1", "-out", ecparam.name])
+        if out:
+            QMessageBox.information(self, "Ecparam generation result", out)
 
-        p = Popen(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", "ec:{}".format(ecparam.name), "-keyout", keyfile, "-out", csrfile], shell=False, stderr=STDOUT, stdout=PIPE)
-        QMessageBox.information(self, "Generation result", p.communicate()[0].decode("utf-8"))
+        out = self.run(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", "ec:{}".format(ecparam.name), "-keyout", keyfile, "-out", csrfile])
+        if out:
+            QMessageBox.information(self, "Generation result", out)
 
         os.unlink(ecparam.name)
 
         if self.chkSign.checkState() == Qt.Checked:
             crtfile = os.path.expanduser("~/%s.crt" % domain)
-            p = Popen(["openssl", "x509", "-req", "-days", str(self.spinDays.value()), "-in", csrfile, "-signkey", keyfile, "-out", crtfile], shell=False, stderr=STDOUT, stdout=PIPE)
-            QMessageBox.information(self, "Signing result", p.communicate()[0].decode("utf-8"))
+            out = self.run(["openssl", "x509", "-req", "-days", str(self.spinDays.value()), "-in", csrfile, "-signkey", keyfile, "-out", crtfile])
+            if out:
+                QMessageBox.information(self, "Signing result", out)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
