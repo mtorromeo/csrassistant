@@ -10,8 +10,8 @@ from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QLayout
 from Ui_csrwindow import Ui_CSRWindow
 
 class CSRAssistant(QDialog, Ui_CSRWindow):
-    def __init__(self):
-        QDialog.__init__(self)
+    def __init__(self, **kwds):
+        super().__init__(**kwds)
         self.setupUi(self)
 
     @pyqtSlot()
