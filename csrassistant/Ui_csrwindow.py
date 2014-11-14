@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'csrwindow.ui'
 #
-# Created: Fri Nov 14 15:02:40 2014
+# Created: Fri Nov 14 15:15:42 2014
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_CSRWindow(object):
     def setupUi(self, CSRWindow):
         CSRWindow.setObjectName("CSRWindow")
-        CSRWindow.resize(379, 332)
+        CSRWindow.resize(379, 369)
         self.verticalLayout = QtWidgets.QVBoxLayout(CSRWindow)
         self.verticalLayout.setObjectName("verticalLayout")
         self.formLayout = QtWidgets.QFormLayout()
@@ -74,7 +74,7 @@ class Ui_CSRWindow(object):
         self.spinDays = QtWidgets.QSpinBox(self.groupSign)
         self.spinDays.setMinimum(1)
         self.spinDays.setMaximum(100000)
-        self.spinDays.setProperty("value", 30)
+        self.spinDays.setProperty("value", 365)
         self.spinDays.setObjectName("spinDays")
         self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.spinDays)
         self.verticalLayout.addWidget(self.groupSign)
@@ -116,14 +116,14 @@ class Ui_CSRWindow(object):
     def retranslateUi(self, CSRWindow):
         _translate = QtCore.QCoreApplication.translate
         CSRWindow.setWindowTitle(_translate("CSRWindow", "CSR Assistant"))
-        self.lblDomain.setText(_translate("CSRWindow", "Domain"))
+        self.lblDomain.setText(_translate("CSRWindow", "&Domain"))
         self.txtDomain.setText(_translate("CSRWindow", "www."))
         self.lblCountry.setText(_translate("CSRWindow", "Country"))
         self.txtCountry.setText(_translate("CSRWindow", "IT"))
-        self.lblStateProvince.setText(_translate("CSRWindow", "State or Province"))
-        self.lblLocality.setText(_translate("CSRWindow", "Locality"))
-        self.lblOrganization.setText(_translate("CSRWindow", "Organization"))
-        self.lblOrganizationUnit.setText(_translate("CSRWindow", "Organization Unit"))
+        self.lblStateProvince.setText(_translate("CSRWindow", "S&tate or Province"))
+        self.lblLocality.setText(_translate("CSRWindow", "&Locality"))
+        self.lblOrganization.setText(_translate("CSRWindow", "Or&ganization"))
+        self.lblOrganizationUnit.setText(_translate("CSRWindow", "Organization &Unit"))
         self.txtOrganizationUnit.setText(_translate("CSRWindow", "Web Department"))
         self.lblEmail.setText(_translate("CSRWindow", "Email"))
         self.chkSign.setText(_translate("CSRWindow", "Generate self-signed certificate"))
