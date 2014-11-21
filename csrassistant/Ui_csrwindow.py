@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'csrwindow.ui'
 #
-# Created: Fri Nov 14 15:15:42 2014
+# Created: Fri Nov 21 09:53:38 2014
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_CSRWindow(object):
     def setupUi(self, CSRWindow):
         CSRWindow.setObjectName("CSRWindow")
-        CSRWindow.resize(379, 369)
+        CSRWindow.resize(379, 391)
         self.verticalLayout = QtWidgets.QVBoxLayout(CSRWindow)
         self.verticalLayout.setObjectName("verticalLayout")
         self.formLayout = QtWidgets.QFormLayout()
@@ -59,6 +59,14 @@ class Ui_CSRWindow(object):
         self.txtEmail = QtWidgets.QLineEdit(CSRWindow)
         self.txtEmail.setObjectName("txtEmail")
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.txtEmail)
+        self.lblAlgorithm = QtWidgets.QLabel(CSRWindow)
+        self.lblAlgorithm.setObjectName("lblAlgorithm")
+        self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.lblAlgorithm)
+        self.cmbAlgorithm = QtWidgets.QComboBox(CSRWindow)
+        self.cmbAlgorithm.setObjectName("cmbAlgorithm")
+        self.cmbAlgorithm.addItem("")
+        self.cmbAlgorithm.addItem("")
+        self.formLayout.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.cmbAlgorithm)
         self.verticalLayout.addLayout(self.formLayout)
         self.chkSign = QtWidgets.QCheckBox(CSRWindow)
         self.chkSign.setObjectName("chkSign")
@@ -109,7 +117,8 @@ class Ui_CSRWindow(object):
         CSRWindow.setTabOrder(self.txtLocality, self.txtOrganization)
         CSRWindow.setTabOrder(self.txtOrganization, self.txtOrganizationUnit)
         CSRWindow.setTabOrder(self.txtOrganizationUnit, self.txtEmail)
-        CSRWindow.setTabOrder(self.txtEmail, self.chkSign)
+        CSRWindow.setTabOrder(self.txtEmail, self.cmbAlgorithm)
+        CSRWindow.setTabOrder(self.cmbAlgorithm, self.chkSign)
         CSRWindow.setTabOrder(self.chkSign, self.spinDays)
         CSRWindow.setTabOrder(self.spinDays, self.btnGenerate)
 
@@ -126,6 +135,9 @@ class Ui_CSRWindow(object):
         self.lblOrganizationUnit.setText(_translate("CSRWindow", "Organization &Unit"))
         self.txtOrganizationUnit.setText(_translate("CSRWindow", "Web Department"))
         self.lblEmail.setText(_translate("CSRWindow", "Email"))
+        self.lblAlgorithm.setText(_translate("CSRWindow", "Algorithm"))
+        self.cmbAlgorithm.setItemText(0, _translate("CSRWindow", "RSA"))
+        self.cmbAlgorithm.setItemText(1, _translate("CSRWindow", "ECDSA"))
         self.chkSign.setText(_translate("CSRWindow", "Generate self-signed certificate"))
         self.groupSign.setTitle(_translate("CSRWindow", "Sign options"))
         self.lblDays.setText(_translate("CSRWindow", "Days of validation"))

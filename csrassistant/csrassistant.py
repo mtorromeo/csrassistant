@@ -58,18 +58,23 @@ class CSRAssistant(QDialog, Ui_CSRWindow):
             self.txtEmail.text()
         )
 
-        ecparam = NamedTemporaryFile(delete=False)
-        ecparam.close()
+        if self.cmbAlgorithm.currentText() == "ECDSA":
+            ecparam = NamedTemporaryFile(delete=False)
+            ecparam.close()
 
-        out = self.run(["openssl", "ecparam", "-name", "secp256k1", "-out", ecparam.name])
-        if out:
-            QMessageBox.information(self, "Ecparam generation result", out)
+            out = self.run(["openssl", "ecparam", "-name", "secp256k1", "-out", ecparam.name])
+            if out:
+                QMessageBox.information(self, "Ecparam generation result", out)
+            algo = "ec:{}".format(ecparam.name)
+        else:
+            algo = "rsa:2048"
 
-        out = self.run(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", "ec:{}".format(ecparam.name), "-keyout", keyfile, "-out", csrfile])
+        out = self.run(["openssl", "req", "-new", "-sha256", "-subj", csrdata, "-nodes", "-newkey", algo, "-keyout", keyfile, "-out", csrfile])
         if out:
             QMessageBox.information(self, "Generation result", out)
 
-        os.unlink(ecparam.name)
+        if self.cmbAlgorithm.currentText() == "ECDSA":
+            os.unlink(ecparam.name)
 
         if self.chkSign.checkState() == Qt.Checked:
             crtfile = os.path.expanduser("~/%s.crt" % domain)
